@@ -10,9 +10,11 @@ export default function App() {
     formState: { errors },
   } = useForm();
 
+  const checked = watch("terms",false);
   const onSubmit = (data) => console.log(data);
 
   const password = watch("pass");
+
 
   return (
     <>
@@ -151,13 +153,33 @@ export default function App() {
             })}
           />
           {errors.age && <p>{errors.age.message}</p>}
-
-
+      </div>
+        
+      <div className="mt-8">
+          <span className="mr-4">Enter Your Username on this website:</span>
+          <input
+            type="text"
+            className="bg-pink-950 rounded-xl font-black"
+            placeholder="Last Name"
+            {...register("usern", {
+              required: { value: true, message: "This Field is required" },
+              maxLength: { value: 12, message: "Name Limit Exceeded" },
+            })}
+          />
+          {errors.usern && <p>{errors.usern.message}</p>}
         </div>
+  
+      <div className="mt-8">
+        <input type="checkbox" {...register("terms",{required:{value:true,message:"This field is required"}})}/>
+        <span className="ml-2">Do you accept the terms and condition</span>
+         {errors.terms && <p className="text-red-400">{errors.terms.message}</p>}
+        </div>  
+  
 
 
-
-        <button type="submit" className="cursor-pointer bg-white text-purple-900 p-2 rounded-xl mt-5 hover:bg-purple-300 transition">Sign Up</button>
+        <button type="submit" disabled={!checked} className={`cursor-pointer bg-white text-purple-900 p-2 rounded-xl mt-5 hover:bg-purple-300 transition ${
+          !checked ? "opacity-50 cursor-not-allowed" : ""
+        }`}>Sign Up</button>
       </form>
     </>
   );

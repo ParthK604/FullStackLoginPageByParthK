@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import Success from "./page/success"; // ✅ Capitalize component name
+import Success from "./page/success"; 
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 
@@ -24,7 +24,7 @@ export default function App() {
       });
 
       if (res.ok) {
-        navigate("/success"); // ✅ redirect after successful POST
+        navigate("/success");
       } else {
         alert("Something went wrong!");
       }
@@ -47,7 +47,7 @@ export default function App() {
                 <span className="font-extrabold text-5xl">Sign Up</span>
               </div>
 
-              {/* Last Name */}
+              
               <div className="mt-8">
                 <span className="mr-4">Enter Your Last Name :</span>
                 <input
@@ -62,7 +62,7 @@ export default function App() {
                 {errors.lname && <p>{errors.lname.message}</p>}
               </div>
 
-              {/* First Name */}
+             
               <div className="mt-8">
                 <span className="mr-4">Enter Your First Name :</span>
                 <input
@@ -77,7 +77,7 @@ export default function App() {
                 {errors.fname && <p>{errors.fname.message}</p>}
               </div>
 
-              {/* Email */}
+             
               <div className="mt-8">
                 <span className="mr-4">Enter Your Email (optional) :</span>
                 <input
@@ -94,7 +94,7 @@ export default function App() {
                 {errors.email && <p className="text-sm">{errors.email.message}</p>}
               </div>
 
-              {/* Phone Number */}
+             
               <div className="mt-8">
                 <span className="mr-4">Enter Your Phone Number :</span>
                 <input
@@ -114,7 +114,7 @@ export default function App() {
                 {errors.phno && <p>{errors.phno.message}</p>}
               </div>
 
-              {/* Password */}
+           
               <div className="mt-8">
                 <span className="mr-4">Set Your Password :</span>
                 <input
@@ -136,7 +136,7 @@ export default function App() {
                 {errors.pass && <p>{errors.pass.message}</p>}
               </div>
 
-              {/* Confirm Password */}
+         
               <div className="mt-8">
                 <span className="mr-4">Confirm Password :</span>
                 <input
@@ -152,7 +152,7 @@ export default function App() {
                 {errors.cfpass && <p>{errors.cfpass.message}</p>}
               </div>
 
-              {/* Gender */}
+            
               <div className="mt-8">
                 <span className="mr-4">Select Your Gender</span>
                 <select {...register("gender")} className="border text-black rounded-lg p-1">
@@ -162,7 +162,7 @@ export default function App() {
                 </select>
               </div>
 
-              {/* Age */}
+              
               <div className="mt-8">
                 <span className="mr-4">Enter Your Age</span>
                 <input
@@ -217,7 +217,7 @@ export default function App() {
             </form>
           }
         />
-        <Route path="/success" element={<Success />} /> {/* ✅ Capitalized component */}
+        <Route path="/success" element={<Success />} /> 
       </Routes>
     </>
   );

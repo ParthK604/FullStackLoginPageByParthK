@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import Success from "./page/success"; 
+import Login from "./page/Login";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 
@@ -14,7 +15,7 @@ export default function App() {
   const checked = watch("terms", false);
   const navigate = useNavigate();
   const password = watch("pass");
-
+  
   const onSubmit = async (data) => {
     try {
       const res = await fetch("https://signuppagebyparthkamath.onrender.com/", {
@@ -32,7 +33,8 @@ export default function App() {
       console.error("Error:", err);
     }
   };
-
+   
+  
   return (
     <>
       <Routes>
@@ -214,10 +216,19 @@ export default function App() {
               >
                 Sign Up
               </button>
+              
+              {/* login button */}
+              <div>
+                or Already Have An Account ?
+              </div>
+              <button onClick={()=>navigate("/login")} className="cursor-pointer bg-white text-purple-900 p-2 rounded-xl mt-5 hover:bg-purple-300 transition">
+                Login 
+              </button>
             </form>
           }
         />
         <Route path="/success" element={<Success />} /> 
+        <Route path="/login" element={<Login/>}/>
       </Routes>
     </>
   );

@@ -14,8 +14,8 @@ app.use(express.json());
 
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected Successfully"))
-  .catch((err) => console.log("❌ MongoDB Connection Error:", err));
+  .then(() => console.log(" MongoDB Connected Successfully"))
+  .catch((err) => console.log(" MongoDB Connection Error:", err));
 
 
 const userSchema = new mongoose.Schema({
@@ -34,21 +34,21 @@ const User = mongoose.model("User", userSchema);
 
 
 app.get("/", (req, res) => {
-  res.send("Server is running fine 👍");
+  res.send("Server is running fine ");
 });
 
 app.post("/", async (req, res) => {
   try {
     const newUser = new User(req.body);
     await newUser.save();
-    res.status(200).send("✅ User data saved to MongoDB");
+    res.status(200).send(" User data saved to MongoDB");
   } catch (error) {
     console.error(error);
-    res.status(500).send("❌ Error saving data");
+    res.status(500).send(" Error saving data");
   }
 });
 
 
 app.listen(port, () => {
-  console.log(`🚀 Server running on port ${port}`);
+  console.log(` Server running on port ${port}`);
 });

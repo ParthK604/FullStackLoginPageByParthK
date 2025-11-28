@@ -18,7 +18,7 @@ export default function App() {
   
   const onSubmit = async (data) => {
     try {
-      const res = await fetch("https://signuppagebyparthkamath.onrender.com/", {
+      const res = await fetch("http://localhost:3000/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

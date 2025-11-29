@@ -7,9 +7,23 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit =async (data) => {
     console.log(data);
-    // later: send fetch("/login")
+    try {
+      const res=await fetch("http://localhost:3000/api/auth/login",{
+      method:"POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      
+      });
+      if (res.ok) {
+        navigate("/success");
+      } else {
+        alert("Something went wrong!");
+      }
+    } catch (err) {
+      console.error("Error",err);
+    }
   };
 
   return (

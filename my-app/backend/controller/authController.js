@@ -1,0 +1,63 @@
+import User from "../models/User";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+
+export async function handlesignup(req, res) {
+  try {
+    const { fname, lname, email, phno, age, gender, pass, usern } = req.body;
+
+    
+    const existingUser = await User.findOne({ usern });
+    if (existingUser) {
+      return res.status(400).send("Username already exists");
+    }
+
+    
+    const hashedpass = await bcrypt.hash(pass, 10);
+
+    
+    const newUser = new User({
+      fname,
+      lname,
+      email,
+      phno,
+      age,
+      gender,
+      usern,
+      pass: hashedpass,
+    });
+
+    await newUser.save();
+    res.status(201).send("User registered successfully");
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error during signup");
+  }
+}
+
+
+
+export async function handlelogin(req, res) {
+  try {
+    const { loginuser, loginpass } = req.body;
+
+const existingUser = await User.findOne({ usern: loginuser });
+    if (!existingUser) {
+      return res.status(400).send("Invalid username or password");
+    }
+
+
+    const isMatch = await bcrypt.compare(loginpass, existingUser.pass);
+    if (!isMatch) {
+      return res.status(400).send("Invalid username or password");
+    }
+
+    res.status(200).send("Login successful");
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error during login");
+  }
+}

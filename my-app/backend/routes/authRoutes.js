@@ -1,12 +1,9 @@
 import express from "express";
-const router=express.Router();
+import { handlelogin,handlesignup } from "../controller/authController";
+const router = express.Router();
 
-app.post("/",(req,res)=>{
-  res.send("GOt the info after signup");
-});
+router.post("/signup", handlesignup)
+router.post("/login", handlelogin)
 
-app.post("/login",(req,res)=>{
-    res.send("Got the info after login");
-});
 
-module.exports=router;
+export default router;

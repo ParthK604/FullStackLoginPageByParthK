@@ -1,7 +1,8 @@
-import User from "../models/User";
+import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+const secret=process.env.JWT_SECRET || "dev_secret_replace_me";
 
 export async function handlesignup(req, res) {
   try {
@@ -53,9 +54,20 @@ const existingUser = await User.findOne({ usern: loginuser });
     if (!isMatch) {
       return res.status(400).send("Invalid username or password");
     }
+    const token=jwt.sign(
+      {id:existingUser._id},
+      secret,
+      {expiresIn:"7d"}
+    )
 
-    res.status(200).send("Login successful");
+   res.cookie("token", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax",
+  maxAge: 7*24*60*60*1000
+});
 
+   return res.status(200).json({ message: "Login successful" });
   } catch (err) {
     console.error(err);
     res.status(500).send("Error during login");

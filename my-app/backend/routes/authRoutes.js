@@ -1,9 +1,23 @@
 import express from "express";
-import { handlelogin,handlesignup } from "../controller/authController";
+import User from "../models/User.js";
+import { handlelogin,handlesignup } from "../controller/authController.js";
+import authmiddleware from "../middleware/authMiddleware.js";
 const router = express.Router();
 
-router.post("/signup", handlesignup)
-router.post("/login", handlelogin)
+router.post("/signup", handlesignup);
+router.post("/login", handlelogin);
+
+router.get("/me", authmiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("-pass -__v");
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 
 export default router;

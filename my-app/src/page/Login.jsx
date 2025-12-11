@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const {
@@ -7,12 +8,15 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
+  const navigate=useNavigate();
+
   const onSubmit =async (data) => {
     console.log(data);
     try {
       const res=await fetch("http://localhost:3000/api/auth/login",{
       method:"POST",
       headers: { "Content-Type": "application/json" },
+      credentials:"include",
       body: JSON.stringify(data),
       
       });
@@ -20,6 +24,7 @@ export default function Login() {
         navigate("/success");
       } else {
         alert("Something went wrong!");
+        
       }
     } catch (err) {
       console.error("Error",err);
@@ -60,6 +65,10 @@ export default function Login() {
         <button type="submit" className="mt-5 bg-white text-purple-900 p-2 rounded-xl cursor-pointer">
           Login
         </button>
+
+        <div className="errormsg">
+         
+        </div>
 
       </form>
     </div>
